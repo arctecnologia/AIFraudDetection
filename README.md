@@ -1,46 +1,59 @@
-# 🛡️ Detecção de Anomalias em Transações Financeiras
+# 🛡️ Deteção de Anomalias em Transações Financeiras
 
-[![Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626.svg)](https://jupyter.org/)
 [![Kaggle](https://img.shields.io/badge/Dataset-Kaggle-20BEFF)](https://www.kaggle.com/mlg-ulb/creditcardfraud)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 📌 Visão Geral do Produto
-Este projeto apresenta um pipeline analítico ponta a ponta para a identificação de fraudes em transações de cartão de crédito. Desenvolvido no Google Colab, o modelo foca em lidar com o desafio clássico de **desbalanceamento extremo de classes** (onde fraudes representam apenas ~0,17% do volume total), priorizando a detecção de anomalias com alta precisão para mitigar perdas financeiras sem impactar a experiência do usuário (falsos positivos).
+Este projeto apresenta um pipeline analítico de ponta a ponta para a identificação de fraudes em transações de cartão de crédito. O modelo foca em lidar com o desafio clássico de **desbalanceamento extremo de classes** (onde as fraudes representam apenas ~0,17% do volume total), priorizando a deteção de anomalias com alta precisão para mitigar perdas financeiras sem impactar a experiência do utilizador (falsos positivos).
 
-## 🎯 Arquitetura e Escopo Técnico
+## 🎯 Arquitetura e Âmbito Técnico
 A solução foi desenhada utilizando uma abordagem não supervisionada/semi-supervisionada, adequada para cenários onde a classe minoritária é escassa.
 
-* **Linguagem & Ambiente:** Python, Google Colab.
+* **Linguagem:** Python.
 * **Manipulação e Visualização:** Pandas, NumPy, Seaborn, Matplotlib.
-* **Modelagem Preditiva:** `Isolation Forest` (Scikit-Learn).
-* **Técnicas Aplicadas:** Padronização de escala de variáveis monetárias e temporais (`StandardScaler`), particionamento estratificado de dados e avaliação de métricas orientadas a negócio (Curva Precision-Recall).
+* **Modelação Preditiva:** `Isolation Forest` (Scikit-Learn).
+* **Técnicas Aplicadas:** Padronização de escala de variáveis monetárias e temporais (`StandardScaler`), particionamento estratificado de dados e avaliação de métricas orientadas ao negócio (Curva Precision-Recall).
 
 ## 🗄️ Governança e Qualidade de Dados
 Alinhado com as melhores práticas de gestão de dados, o dataset utilizado requer atenção específica:
-* **Privacidade e Segurança:** As variáveis de entrada (V1 a V28) passaram por uma transformação de Componentes Principais (PCA) para anonimização, garantindo a proteção das informações sensíveis dos clientes e conformidade com regulamentações de proteção de dados.
-* **Profiling:** A etapa inicial do projeto garante a verificação de completude (ausência de valores nulos) e análise da distribuição original do ativo de dados antes da modelagem.
+* **Privacidade e Segurança:** As variáveis de entrada (V1 a V28) passaram por uma transformação de Componentes Principais (PCA) para anonimização, garantindo a proteção das informações sensíveis dos clientes e a conformidade com as regulamentações de proteção de dados.
+* **Profiling:** A etapa inicial do projeto garante a verificação de completude (ausência de valores nulos) e a análise da distribuição original do ativo de dados antes da modelação.
 
-## 🚀 Como Executar o Projeto
+## 🚀 Como Executar o Projeto (Localmente)
 
-1.  **Clone o repositório:**
+1.  **Clonar o repositório:**
     ```bash
-    git clone [https://github.com/SEU_USUARIO/nome-do-repositorio.git](https://github.com/SEU_USUARIO/nome-do-repositorio.git)
-    cd nome-do-repositorio
+    git clone [https://github.com/arctecnologia/NOME_DO_REPOSITORIO.git](https://github.com/arctecnologia/NOME_DO_REPOSITORIO.git)
+    cd NOME_DO_REPOSITORIO
     ```
-2.  **Configuração do Ambiente:** * Abra o notebook `Anomaly_Detection_Transactions.ipynb` no Google Colab.
-3.  **Credenciais do Kaggle:**
-    * Certifique-se de ter o arquivo `kaggle.json` (gerado na sua conta Kaggle) para realizar a ingestão automatizada do dataset direto via API. Faça o upload do arquivo para o ambiente do Colab quando solicitado.
-4.  **Execução:** * Rode as células sequencialmente para replicar a ingestão, transformação, treinamento e avaliação do modelo.
+    *(Nota: Substitua `NOME_DO_REPOSITORIO` pelo nome exato deste repositório)*
+
+2.  **Configuração do Ambiente Virtual (Recomendado):**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # No Windows use: venv\Scripts\activate
+    ```
+
+3.  **Instalação de Dependências:**
+    Certifique-se de instalar as bibliotecas necessárias para executar o notebook:
+    ```bash
+    pip install pandas numpy scikit-learn matplotlib seaborn jupyter
+    ```
+
+4.  **Download do Dataset:**
+    * Aceda à página do dataset no Kaggle: [Credit Card Fraud Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud).
+    * Faça o download do ficheiro, extraia-o e coloque o ficheiro `creditcard.csv` na mesma pasta do seu ficheiro `.ipynb`.
+
+5.  **Execução:**
+    * Inicie o Jupyter Notebook (ou abra o projeto no VS Code):
+    ```bash
+    jupyter notebook
+    ```
+    * Abra o ficheiro `AIFraudDetection.ipynb` e execute as células sequencialmente.
 
 ## 📊 Resultados e Métricas
-Em contextos de alta assimetria, a métrica de Acurácia é descartada em favor de indicadores que refletem o impacto real no negócio. O modelo é avaliado principalmente pela **Curva Precision-Recall (PR AUC)** e pela **Matriz de Confusão**, buscando o melhor ponto de equilíbrio entre:
-* **Recall:** Capacidade de não deixar transações fraudulentas passarem.
-* **Precision:** Garantia de que os alertas gerados são reais, evitando bloqueios indevidos em cartões de clientes legítimos.
-
-## 🛤️ Próximos Passos (Roadmap)
-- [ ] Testar arquiteturas de *Deep Learning* (Ex: Autoencoders) para reconstrução de padrões e identificação de anomalias no erro de reconstrução.
-- [ ] Implementar técnicas de *Oversampling/Undersampling* (SMOTE, ADASYN) em modelos supervisionados clássicos (XGBoost, Random Forest).
-- [ ] Empacotar o modelo em uma API REST (usando FastAPI ou Flask) para simular inferências em tempo real.
-
----
-*Desenvolvido com foco em produtos de dados e inteligência artificial.*
+Em contextos de alta assimetria, a métrica de Exatidão (Accuracy) é descartada em favor de indicadores que refletem o impacto real no negócio. O modelo é avaliado principalmente pela **Curva Precision-Recall (PR AUC)** e pela **Matriz de Confusão**, procurando o melhor ponto de equilíbrio entre:
+* **Recall:** Capacidade de não deixar passar transações fraudulentas.
+* **Precision:** Garantia de que os alertas gerados são reais, evitando bloque
